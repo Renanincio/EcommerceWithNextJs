@@ -11,6 +11,12 @@ export class PrismaProductsRepository implements ProductsRepository {
     return product;
   }
 
+  async get() {
+    const products = await prisma.product.findMany();
+
+    return products;
+  }
+
   async update(data: Prisma.ProductCreateInput) {
     const product = await prisma.product.update({
       where: {
