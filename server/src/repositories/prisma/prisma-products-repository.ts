@@ -10,4 +10,27 @@ export class PrismaProductsRepository implements ProductsRepository {
 
     return product;
   }
+
+  async update(data: Prisma.ProductCreateInput) {
+    const product = await prisma.product.update({
+      where: {
+        id: data.id,
+      },
+      data: {
+        ...data,
+      },
+    });
+
+    return product;
+  }
+
+  async delete(id: string) {
+    const product = await prisma.product.delete({
+      where: {
+        id,
+      },
+    });
+
+    return product;
+  }
 }

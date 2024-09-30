@@ -1,6 +1,5 @@
-import { RegisterProductUseCase } from "../registerProduct/registerProduct";
-
 import { PrismaProductsRepository } from "../../repositories/prisma/prisma-products-repository";
+import { RegisterProductUseCase } from "../product/registerProduct";
 
 export function makeRegisterProductUseCase() {
   const productsRepository = new PrismaProductsRepository();

@@ -22,4 +22,37 @@ export class InMemoryProductsRepository implements ProductsRepository {
 
     return product;
   }
+
+  async update(data: Prisma.ProductCreateInput) {
+    const productIndex = this.items.findIndex(
+      (product) => product.id === data.id,
+    );
+
+    if (productIndex === -1) {
+      throw new Error("Produto não encontrado");
+    }
+
+    const updatedProduct = {
+      ...this.items[productIndex],
+      ...data,
+    };
+
+    this.items[productIndex] = updatedProduct as Product;
+
+    return updatedProduct;
+  }
+
+  async delete(id: string) {
+    const productIndex = this.items.findIndex((product) => product.id === id);
+
+    if (productIndex === -1) {
+      throw new Error("Produto não encontrado");
+    }
+
+    const deletedProduct = this.items[productIndex];
+
+    this.items.splice(productIndex, 1);
+
+    return deletedProduct;
+  }
 }
