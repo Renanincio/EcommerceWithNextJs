@@ -10,6 +10,7 @@ interface UpdateProductUseCaseRequest {
   info: string;
   datasheet: string;
   image: number;
+  id: string;
 }
 
 interface UpdateProductUseCaseResponse {
@@ -28,6 +29,7 @@ export class UpdateProductUseCase {
     image,
     info,
     name,
+    id,
   }: UpdateProductUseCaseRequest): Promise<UpdateProductUseCaseResponse> {
     const product = await this.productsRepository.update({
       price,
@@ -38,6 +40,7 @@ export class UpdateProductUseCase {
       image,
       info,
       name,
+      id,
     });
 
     return {
