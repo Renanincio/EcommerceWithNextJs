@@ -1,5 +1,6 @@
 import { Comments } from "@prisma/client";
 import { CommentsRepository } from "../../repositories/comments-repository";
+import { ResourceNotFoundError } from "../errors/resource-not-found-error";
 
 interface UpdateCommentUseCaseRequest {
   id: string;
@@ -23,6 +24,11 @@ export class UpdateCommentUseCase {
     text,
     userId,
   }: UpdateCommentUseCaseRequest): Promise<UpdateCommentUseCaseResponse> {
+    const resource = await this.commentsRepository.findById(id);
+
+    if (!resource) {
+      throw new ResourceNotFoundError();
+    }
     const comment = await this.commentsRepository.update({
       productId,
       text,

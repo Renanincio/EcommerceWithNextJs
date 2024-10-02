@@ -5,7 +5,7 @@ import { DeleteCommentUseCase } from "./deleteComments";
 let commentsRepository: InMemoryCommentsRepository;
 let sut: DeleteCommentUseCase;
 
-describe("Register Use Case", () => {
+describe("Delete Comments Use Case", () => {
   beforeEach(() => {
     commentsRepository = new InMemoryCommentsRepository();
     sut = new DeleteCommentUseCase(commentsRepository);

@@ -5,4 +5,5 @@ export interface CommentsRepository {
   update(data: Comments): Promise<Comments>;
   delete(id: string): Promise<Comments>;
   get(): Promise<Comments[]>;
+  findById(id: string): Promise<Comments | null>;
 }

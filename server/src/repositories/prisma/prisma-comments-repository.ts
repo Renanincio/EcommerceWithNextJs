@@ -40,6 +40,16 @@ export class PrismaCommentsRepository implements CommentsRepository {
     return comment;
   }
 
+  async findById(id: string) {
+    const comment = await prisma.comments.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    return comment;
+  }
+
   async delete(id: string) {
     const comment = await prisma.comments.delete({
       where: {

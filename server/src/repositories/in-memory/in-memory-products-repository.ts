@@ -29,6 +29,16 @@ export class InMemoryProductsRepository implements ProductsRepository {
     return products;
   }
 
+  async findById(id: string) {
+    const product = this.items.find((product) => product.id === id);
+
+    if (!product) {
+      return null;
+    }
+
+    return product;
+  }
+
   async update(data: Prisma.ProductCreateInput) {
     const productIndex = this.items.findIndex(
       (product) => product.id === data.id,

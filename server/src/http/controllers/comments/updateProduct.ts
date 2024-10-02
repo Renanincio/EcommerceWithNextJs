@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
-import { UserAlreadyExistsError } from "../../../use-cases/errors/user-already-exists-error";
+import { ProductDoesNotExists } from "../../../use-cases/errors/product-does-not-exists";
 import { makeUpdateCommentsUseCase } from "../../../use-cases/factories/comments/make-update-comment-use-case";
 
 export async function UpdateComment(
@@ -30,7 +30,7 @@ export async function UpdateComment(
       userId,
     });
   } catch (err) {
-    if (err instanceof UserAlreadyExistsError) {
+    if (err instanceof ProductDoesNotExists) {
       return reply.status(409).send({ message: err.message });
     }
 

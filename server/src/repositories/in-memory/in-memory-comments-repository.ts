@@ -25,6 +25,16 @@ export class InMemoryCommentsRepository implements CommentsRepository {
     return comments;
   }
 
+  async findById(id: string) {
+    const comment = this.items.find((comment) => comment.id === id);
+
+    if (!comment) {
+      return null;
+    }
+
+    return comment;
+  }
+
   async update(data: Comments) {
     const commentIndex = this.items.findIndex(
       (comment) => comment.id === data.id,

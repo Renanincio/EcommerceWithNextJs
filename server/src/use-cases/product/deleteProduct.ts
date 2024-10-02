@@ -1,5 +1,6 @@
 import { Product } from "@prisma/client";
 import { ProductsRepository } from "../../repositories/products-repository";
+import { ResourceNotFoundError } from "../errors/resource-not-found-error";
 
 interface DeleteProductUseCaseRequest {
   id: string;
@@ -18,7 +19,7 @@ export class DeleteProductUseCase {
     const product = await this.productsRepository.delete(id);
 
     if (!product) {
-      throw new Error("Produto não encontrado");
+      throw new ResourceNotFoundError();
     }
 
     return {

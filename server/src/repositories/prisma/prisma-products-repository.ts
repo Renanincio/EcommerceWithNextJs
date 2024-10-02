@@ -1,6 +1,6 @@
-import { ProductsRepository } from "./../products-repository";
-import { prisma } from "../../lib/prisma";
 import { Prisma } from "@prisma/client";
+import { prisma } from "../../lib/prisma";
+import { ProductsRepository } from "./../products-repository";
 
 export class PrismaProductsRepository implements ProductsRepository {
   async create(data: Prisma.ProductCreateInput) {
@@ -15,6 +15,16 @@ export class PrismaProductsRepository implements ProductsRepository {
     const products = await prisma.product.findMany();
 
     return products;
+  }
+
+  async findById(id: string) {
+    const product = await prisma.product.findFirst({
+      where: {
+        id,
+      },
+    });
+
+    return product;
   }
 
   async update(data: Prisma.ProductCreateInput) {

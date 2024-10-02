@@ -1,5 +1,6 @@
 import { Comments } from "@prisma/client";
 import { CommentsRepository } from "../../repositories/comments-repository";
+import { ResourceNotFoundError } from "../errors/resource-not-found-error";
 
 interface DeleteCommentsUseCaseRequest {
   id: string;
@@ -18,7 +19,7 @@ export class DeleteCommentUseCase {
     const comments = await this.commentsRepository.delete(id);
 
     if (!comments) {
-      throw new Error("Produto não encontrado");
+      throw new ResourceNotFoundError();
     }
 
     return {

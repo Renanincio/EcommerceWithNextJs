@@ -5,4 +5,5 @@ export interface ProductsRepository {
   update(data: Prisma.ProductCreateInput): Promise<Product>;
   delete(id: string): Promise<Product>;
   get(): Promise<Product[]>;
+  findById(id: string): Promise<Product | null>;
 }
