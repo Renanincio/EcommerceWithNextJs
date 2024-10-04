@@ -9,7 +9,7 @@ export class GetProductsUseCase {
   constructor(private productsRepository: ProductsRepository) {}
 
   async execute(): Promise<GetProductsUseCaseResponse> {
-    const products = await this.productsRepository.get();
+    const products = await this.productsRepository.getAll();
 
     return {
       products,

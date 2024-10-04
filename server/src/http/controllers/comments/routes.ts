@@ -9,6 +9,6 @@ export async function productsRoutes(app: FastifyInstance) {
   app.get("/comments", Comments);
 
   app.post("/createComment", { onRequest: [verifyJWT] }, RegisterComments);
-  app.patch("/updateComment", { onRequest: [verifyJWT] }, UpdateComment);
-  app.delete("/deleteComent", { onRequest: [verifyJWT] }, DeleteComment);
+  app.patch("/updateComment/:id", { onRequest: [verifyJWT] }, UpdateComment);
+  app.delete("/deleteComent/:id", { onRequest: [verifyJWT] }, DeleteComment);
 }

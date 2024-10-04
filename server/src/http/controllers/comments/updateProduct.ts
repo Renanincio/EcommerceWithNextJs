@@ -1,21 +1,22 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
-import { ProductDoesNotExists } from "../../../use-cases/errors/product-does-not-exists";
 import { makeUpdateCommentsUseCase } from "../../../use-cases/factories/comments/make-update-comment-use-case";
+import { ResourceNotFoundError } from "../../../use-cases/errors/resource-not-found-error";
 
 export async function UpdateComment(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
   const updateBodySchema = z.object({
-    id: z.string(),
     text: z.string(),
     image: z.number().nullable(),
     userId: z.string(),
     productId: z.string(),
   });
 
-  const { id, image, productId, text, userId } = updateBodySchema.parse(
+  const { id } = request.params as { id: string };
+
+  const { image, productId, text, userId } = updateBodySchema.parse(
     request.body,
   );
 
@@ -30,7 +31,7 @@ export async function UpdateComment(
       userId,
     });
   } catch (err) {
-    if (err instanceof ProductDoesNotExists) {
+    if (err instanceof ResourceNotFoundError) {
       return reply.status(409).send({ message: err.message });
     }
 

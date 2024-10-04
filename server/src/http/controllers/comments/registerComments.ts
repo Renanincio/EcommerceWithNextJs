@@ -22,13 +22,15 @@ export async function RegisterComments(
   try {
     const registerCommentUseCase = makeRegisterCommentsUseCase();
 
-    await registerCommentUseCase.execute({
+    const comment = await registerCommentUseCase.execute({
       id,
       image,
       productId,
       text,
       userId,
     });
+
+    return reply.status(201).send(comment);
   } catch (err) {
     if (err instanceof UserAlreadyExistsError) {
       return reply.status(409).send({ message: err.message });
@@ -36,6 +38,4 @@ export async function RegisterComments(
 
     throw err;
   }
-
-  return reply.status(201).send();
 }

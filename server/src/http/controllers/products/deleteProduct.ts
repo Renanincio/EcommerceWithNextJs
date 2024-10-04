@@ -1,31 +1,22 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { z } from "zod";
-import { UserAlreadyExistsError } from "../../../use-cases/errors/user-already-exists-error";
-import { makeDeleteProductUseCase } from "../../../use-cases/factories/make-delete-product";
+import { makeDeleteProductUseCase } from "../../../use-cases/factories/products/make-delete-product-use-case";
+import { ResourceNotFoundError } from "../../../use-cases/errors/resource-not-found-error";
 
 export async function DeleteProduct(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
-  const deleteBodySchema = z.object({
-    id: z.string(),
-  });
-
-  const { id } = deleteBodySchema.parse(request.body);
+  const { id } = request.params as { id: string };
 
   try {
     const deleteProductUseCase = makeDeleteProductUseCase();
-
-    await deleteProductUseCase.execute({
-      id,
-    });
+    await deleteProductUseCase.execute({ id });
+    return reply.status(204).send();
   } catch (err) {
-    if (err instanceof UserAlreadyExistsError) {
-      return reply.status(409).send({ message: err.message });
+    if (err instanceof ResourceNotFoundError) {
+      return reply.status(404).send({ message: "Product not found" });
     }
-
-    throw err;
+    console.error("Error deleting product:", err);
+    return reply.status(500).send({ message: "Internal server error" });
   }
-
-  return reply.status(201).send();
 }

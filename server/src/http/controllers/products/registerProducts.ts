@@ -24,7 +24,7 @@ export async function RegisterProduct(
   try {
     const registerProductUseCase = makeRegisterProductUseCase();
 
-    await registerProductUseCase.execute({
+    const product = await registerProductUseCase.execute({
       price,
       description,
       name,
@@ -34,6 +34,8 @@ export async function RegisterProduct(
       datasheet,
       image,
     });
+
+    return reply.status(201).send(product);
   } catch (err) {
     if (err instanceof UserAlreadyExistsError) {
       return reply.status(409).send({ message: err.message });
@@ -41,6 +43,4 @@ export async function RegisterProduct(
 
     throw err;
   }
-
-  return reply.status(201).send();
 }

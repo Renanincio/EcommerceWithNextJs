@@ -37,8 +37,7 @@ export class UpdateProductUseCase {
     if (!productExists) {
       throw new ResourceNotFoundError();
     }
-
-    const product = await this.productsRepository.update({
+    const data = {
       price,
       description,
       category,
@@ -47,8 +46,9 @@ export class UpdateProductUseCase {
       image,
       info,
       name,
-      id,
-    });
+    };
+
+    const product = await this.productsRepository.update(id, data);
 
     return {
       product,

@@ -11,7 +11,7 @@ export class PrismaProductsRepository implements ProductsRepository {
     return product;
   }
 
-  async get() {
+  async getAll() {
     const products = await prisma.product.findMany();
 
     return products;
@@ -27,26 +27,24 @@ export class PrismaProductsRepository implements ProductsRepository {
     return product;
   }
 
-  async update(data: Prisma.ProductCreateInput) {
-    const product = await prisma.product.update({
-      where: {
-        id: data.id,
-      },
-      data: {
-        ...data,
-      },
-    });
+  async update(id: string, data: Prisma.ProductCreateInput) {
+    try {
+      const product = await prisma.product.update({
+        where: { id },
+        data: { ...data },
+      });
 
-    return product;
+      return product;
+    } catch (error) {
+      console.error("Erro ao atualizar o produto no banco de dados:", error);
+      throw new Error("Erro ao atualizar o produto");
+    }
   }
 
   async delete(id: string) {
     const product = await prisma.product.delete({
-      where: {
-        id,
-      },
+      where: { id },
     });
-
     return product;
   }
 }

@@ -1,5 +1,4 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { z } from "zod";
 import { UserAlreadyExistsError } from "../../../use-cases/errors/user-already-exists-error";
 import { makeDeleteCommentUseCase } from "../../../use-cases/factories/comments/make-delete-comment-use-case";
 
@@ -7,11 +6,7 @@ export async function DeleteComment(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
-  const deleteBodySchema = z.object({
-    id: z.string(),
-  });
-
-  const { id } = deleteBodySchema.parse(request.body);
+  const { id } = request.params as { id: string };
 
   try {
     const deleteCommentUseCase = makeDeleteCommentUseCase();

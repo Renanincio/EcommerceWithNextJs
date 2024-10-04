@@ -6,10 +6,10 @@ import { verifyJWT } from "../../middlewares/verify-jwt";
 import { Profile } from "./profile";
 
 export async function userRoutes(app: FastifyInstance) {
-  app.post("users", Register);
-  app.post("sessions", Authenticate);
+  app.post("/users", Register);
+  app.post("/sessions", Authenticate);
 
   app.patch("/token/refresh", Refresh);
 
-  app.get("me", { onRequest: [verifyJWT] }, Profile);
+  app.get("/me", { onRequest: [verifyJWT] }, Profile);
 }

@@ -23,7 +23,7 @@ export class InMemoryProductsRepository implements ProductsRepository {
     return product;
   }
 
-  async get() {
+  async getAll() {
     const products = this.items;
 
     return products;
@@ -39,10 +39,8 @@ export class InMemoryProductsRepository implements ProductsRepository {
     return product;
   }
 
-  async update(data: Prisma.ProductCreateInput) {
-    const productIndex = this.items.findIndex(
-      (product) => product.id === data.id,
-    );
+  async update(id: string, data: Prisma.ProductCreateInput) {
+    const productIndex = this.items.findIndex((product) => product.id === id);
 
     if (productIndex === -1) {
       throw new Error("Produto não encontrado");
