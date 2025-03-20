@@ -9,7 +9,7 @@ export async function UpdateComment(
 ) {
   const updateBodySchema = z.object({
     text: z.string(),
-    image: z.number().nullable(),
+    image: z.instanceof(Buffer).nullable(),
     userId: z.string(),
     productId: z.string(),
   });

@@ -9,7 +9,7 @@ interface RegisterProductUseCaseRequest {
   category: string;
   info: string;
   datasheet: string;
-  image: number;
+  image: Buffer;
 }
 
 interface RegisterProductUseCaseResponse {

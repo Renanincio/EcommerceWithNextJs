@@ -1,27 +1,20 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
+"use client"
 
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-})
-
-export const metadata: Metadata = {
-  title: {
-    template: '%s | devstore',
-    default: 'devstore',
-  },
-}
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import { SessionProvider } from "next-auth/react";
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <html className={inter.variable} lang="pt">
-      <body className="bg-[#F3F4F5] text-zinc-50 antialiased">{children}</body>
+    <html lang="pt">
+      <body className="bg-[#F3F4F5] text-[#424750] antialiased">
+        <SessionProvider>{children}</SessionProvider>
+      </body>
     </html>
-  )
+  );
 }

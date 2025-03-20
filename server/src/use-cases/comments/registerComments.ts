@@ -4,7 +4,7 @@ import { CommentsRepository } from "../../repositories/comments-repository";
 interface RegisterCommentUseCaseRequest {
   id: string;
   text: string;
-  image: number | null;
+  image: Buffer | null;
   productId: string;
   userId: string;
 }

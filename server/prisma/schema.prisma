@@ -34,7 +34,7 @@ model Product {
   category    String
   info        String
   datasheet   String
-  image       Int
+  image       Bytes
 
   Comments Comments[]
 }
@@ -42,7 +42,7 @@ model Product {
 model Comments {
   id        String  @id @unique @default(uuid())
   text      String
-  image     Int?
+  image     Bytes?
   user      User    @relation(fields: [userId], references: [id])
   product   Product @relation(fields: [productId], references: [id])
   productId String

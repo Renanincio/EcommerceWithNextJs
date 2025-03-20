@@ -17,7 +17,7 @@ export async function UpdateProduct(
     category: z.string(),
     info: z.string(),
     datasheet: z.string(),
-    image: z.number(),
+    image: z.instanceof(Buffer),
   });
 
   const { price, description, name, color, category, info, datasheet, image } =

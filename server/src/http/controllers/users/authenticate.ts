@@ -24,12 +24,16 @@ export async function Authenticate(
     const token = await reply.jwtSign({
       sign: {
         sub: user.id,
+        name: user.name,
+        email: user.email,
       },
     });
 
     const refreshToken = await reply.jwtSign({
       sign: {
         sub: user.id,
+        name: user.name,
+        email: user.email,
         expiresIn: "7d",
       },
     });

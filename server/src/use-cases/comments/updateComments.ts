@@ -5,7 +5,7 @@ import { ResourceNotFoundError } from "../errors/resource-not-found-error";
 interface UpdateCommentUseCaseRequest {
   id: string;
   text: string;
-  image: number | null;
+  image: Buffer | null;
   productId: string;
   userId: string;
 }

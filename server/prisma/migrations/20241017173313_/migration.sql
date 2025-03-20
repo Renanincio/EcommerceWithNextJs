@@ -19,7 +19,7 @@ CREATE TABLE "Product" (
     "category" TEXT NOT NULL,
     "info" TEXT NOT NULL,
     "datasheet" TEXT NOT NULL,
-    "image" INTEGER NOT NULL,
+    "image" BYTEA NOT NULL,
 
     CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
 );
@@ -28,7 +28,7 @@ CREATE TABLE "Product" (
 CREATE TABLE "Comments" (
     "id" TEXT NOT NULL,
     "text" TEXT NOT NULL,
-    "image" INTEGER,
+    "image" BYTEA,
     "productId" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
 

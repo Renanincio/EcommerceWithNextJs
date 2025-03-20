@@ -10,7 +10,7 @@ interface UpdateProductUseCaseRequest {
   category: string;
   info: string;
   datasheet: string;
-  image: number;
+  image: Buffer;
   id: string;
 }
 

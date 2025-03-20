@@ -10,7 +10,7 @@ export async function RegisterComments(
   const registerBodySchema = z.object({
     id: z.string(),
     text: z.string(),
-    image: z.number().nullable(),
+    image: z.instanceof(Buffer).nullable(),
     userId: z.string(),
     productId: z.string(),
   });

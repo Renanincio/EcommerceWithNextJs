@@ -5,8 +5,22 @@ import { env } from "./env";
 import { userRoutes } from "./http/controllers/users/routes";
 import { productsRoutes } from "./http/controllers/products/routes";
 import { fastifyCookie } from "@fastify/cookie";
+import cors from "@fastify/cors";
 
 export const app = fastify();
+
+app.register(cors, {
+  origin: (origin, callback) => {
+    const allowedOrigins = ["http://localhost:3000"];
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"), false);
+    }
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+});
 
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
