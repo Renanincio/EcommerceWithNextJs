@@ -5,7 +5,7 @@ import useAuthStore from "@/contexts/auth-context/UseAuthStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaApple, FaFacebook, FaGooglePlus } from "react-icons/fa";
 import { z } from "zod";
@@ -63,6 +63,11 @@ export default function Login() {
       }
     }
   };
+
+  useEffect(() => {
+    document.title = "ZiShop - Registre-se";
+  }, []);
+
   return (
     <>
       <form

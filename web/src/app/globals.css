@@ -18,3 +18,9 @@ html {
   background-color: #A71B4A;
   border-radius: 30px;
 }
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  display: none !important;
+  content: none !important;
+}

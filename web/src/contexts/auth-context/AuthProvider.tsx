@@ -3,7 +3,7 @@
 import { api } from "@/data/server";
 import Cookies from "js-cookie";
 import jwt from "jsonwebtoken";
-import { signIn, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { createContext, ReactNode, useEffect, useState } from "react";
 
 interface UserProps {
@@ -93,14 +93,17 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         setError(error.response.data.message);
       });
   };
-  const logout = () => {
+  const logout = async () => {
+    await signOut({ callbackUrl: "/" }); 
+  
     Cookies.remove("AccessToken");
-    setTimeout(() => {
-      setUser(null);
-      setIsAuthenticated(false);
-    }, 100);
+    Cookies.remove("next-auth.callback-url");
+    Cookies.remove("next-auth.csrf-token");
+  
     setUser(null);
-    setIsAuthenticated(false);
+    setIsAuthenticated(false); 
+
+    window.location.href = "/";
   };
 
   const isLogged = () => {

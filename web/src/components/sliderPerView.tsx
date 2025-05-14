@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { FetchProducts } from "@/utils/fetchProducts";
 import { convertBlobToBase64 } from "@/utils/convertBlobToBase64";
 import { Product } from "@/utils/product";
+import Link from "next/link";
 
 export const SliderPerView = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -40,25 +41,34 @@ export const SliderPerView = () => {
               : "/placeholder.png";
           return (
             <SwiperSlide>
-              <li
-                className="inset-0 bg-white/50 backdrop-blur-lg rounded h-[250px] flex flex-col justify-center items-center gap-4"
-                key={product.id}
-              >
-                <Image
-                  src={imageBase64}
-                  width={250}
-                  height={250}
-                  alt=""
-                  className="w-[125px] h-[125px]"
-                />
-                <p className="text-[24px] font-light">{product.name}</p>
-                <p className="text-[18px] font-bold">
-                  {product.price.toLocaleString("pt-BR", {
-                    style: "currency",
-                    currency: "BRL",
-                  })}
-                </p>
-              </li>
+              <Link href={`/product/${product.id}`}>
+                <li
+                  className="inset-0 bg-white/50 backdrop-blur-lg rounded h-[250px] flex flex-col justify-center hover:scale-105 transition-all delay-75"
+                  key={product.id}
+                >
+                  <Image
+                    src={imageBase64}
+                    width={250}
+                    height={250}
+                    alt=""
+                    className="w-[125px] h-[125px] m-auto"
+                  />
+                  <p className="text-[24px] font-light truncate max-w-full px-1">
+                    {product.name}
+                  </p>
+                  <div className="p-2">
+                  <p className="text-[16px] font-semibold line-through">
+                    R$ {(product.price * 1.1).toFixed(2)}
+                  </p>
+                  <p className="text-[18px] font-bold">
+                    {product.price.toLocaleString("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    })}
+                  </p>
+                  </div>
+                </li>
+              </Link>
             </SwiperSlide>
           );
         })}

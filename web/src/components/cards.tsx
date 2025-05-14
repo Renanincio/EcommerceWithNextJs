@@ -4,6 +4,7 @@ import { convertBlobToBase64 } from "@/utils/convertBlobToBase64";
 import { FetchProducts } from "@/utils/fetchProducts";
 import { Product } from "@/utils/product";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -30,6 +31,7 @@ export const Cards = () => {
             ? `data:image/jpeg;base64,${convertBlobToBase64(product.image)}`
             : "/placeholder.png";
         return (
+          <Link href={`/product/${product.id}`}>
           <li
             className="flex flex-col h-[400px] w-[275px] rounded col-span-1 row-span-1"
             key={product.id}
@@ -54,6 +56,7 @@ export const Cards = () => {
               </p>
             </div>
           </li>
+          </Link>
         );
       })}
     </ul>

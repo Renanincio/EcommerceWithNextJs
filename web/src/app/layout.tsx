@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
 import { SessionProvider } from "next-auth/react";
+import "./globals.css";
+import { CartProvider } from "@/contexts/cart-context/CartProvider";
+import { CountProvider } from "@/contexts/count-context/CountContext";
 
 export default function RootLayout({
   children,
@@ -13,7 +13,11 @@ export default function RootLayout({
   return (
     <html lang="pt">
       <body className="bg-[#F3F4F5] text-[#424750] antialiased">
-        <SessionProvider>{children}</SessionProvider>
+        <CountProvider>
+          <CartProvider>
+            <SessionProvider>{children}</SessionProvider>
+          </CartProvider>
+        </CountProvider>
       </body>
     </html>
   );

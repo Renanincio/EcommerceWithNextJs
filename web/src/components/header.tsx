@@ -1,14 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { BsCart3 } from "react-icons/bs";
 import { MenuHeader } from "./menuHeader";
 import { AuthButton } from "./authButton";
+import { CartButton } from "./cartButton";
 
 export const Header = () => {
   return (
     <>
-      <header className="w-full flex items-start gap-4 justify-center h-[150px] border-b-[#E1E4E7] border-b-2 flex-col">
+      <header className="w-full w-max-[1820px] px-6 flex items-start gap-4 justify-center h-[150px] border-b-[#E1E4E7] border-b-2 flex-col">
         <div className="flex justify-between items-center w-full">
           <div className="flex items-center gap-4">
             <Link href={"/"}>
@@ -29,9 +29,7 @@ export const Header = () => {
           <div className="flex items-center gap-4">
             <AuthButton />
             <div className="w-[2px] bg-[#E1E4E7] h-[48px] rounded" />
-            <button>
-              <BsCart3 className="text-[24px]  " />
-            </button>
+            <CartButton />
           </div>
         </div>
         <nav className="flex gap-4 items-center">

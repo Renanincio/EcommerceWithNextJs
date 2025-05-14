@@ -1,25 +1,26 @@
-
 import AuthProvider from "@/contexts/auth-context/AuthProvider";
-import { Metadata } from "next";
+
 import type { AppProps } from "next/app";
 import { Inter } from "next/font/google";
+import Head from "next/head";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
 });
 
-export const metadata: Metadata = {
-  title: {
-    template: "%s | devstore",
-    default: "devstore",
-  },
-};
-
 export default function App({ Component, pageProps }: AppProps) {
+  console.log("App.tsx carregado!");
+
   return (
-    <AuthProvider>
-      <Component {...pageProps} />
-    </AuthProvider>
+    <>
+      <Head>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+      <AuthProvider>
+        <Component {...pageProps} />
+      </AuthProvider>
+    </>
   );
 }

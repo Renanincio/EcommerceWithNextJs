@@ -7,8 +7,9 @@ export default function StoreLayout({ children }: { children: ReactNode }) {
   return (
     <>
       <AuthProvider>
-        <div className="m-auto w-[1170px]">
-          <Header />
+      <Header />
+        <div className="m-auto w-[1220px]">
+          
           {children}
           <Footer />
           <p className="my-4 text-center">

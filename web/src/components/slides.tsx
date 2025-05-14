@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import { useRef } from "react";
 
 const SlidesProps = [
   {
@@ -29,40 +30,67 @@ const SlidesProps = [
 ];
 
 export const Slides = () => {
+  const prevRef = useRef(null);
+  const nextRef = useRef(null);
+
   return (
-    <Swiper
-      rewind={true}
-      navigation={{
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      }}
-      autoplay={{
-        delay: 3000,
-        disableOnInteraction: false,
-      }}
-      speed={900}
-      modules={[Navigation, Autoplay]}
-      className="w-full h-[500px] mt-[35px] text-[#424750]"
-    >
-      {SlidesProps.map((slide, index) => (
-        <SwiperSlide
-          key={index}
-          style={{ backgroundImage: `url(${slide.imageUrl})` }}
-          className="w-full min-h-full bg-cover bg-top bg-no-repeat"
-        >
-          <div className="relative w-[700px] mx-auto mt-[225px] h-[250px] flex items-center justify-center">
-            <div className="absolute inset-0 bg-white/50 backdrop-blur-lg rounded" />
-
-            <div className="relative z-10 text-start p-8">
-              <h2 className="text-3xl font-bold mb-6">{slide.title}</h2>
-              <p className="text-lg">{slide.text}</p>
+    <div className="relative w-full">
+      <Swiper
+        rewind={true}
+        navigation={{
+          prevEl: prevRef.current,
+          nextEl: nextRef.current,
+        }}
+        onInit={(swiper) => {
+          // Vincula os botões ao Swiper depois da inicialização
+          // Isso evita que o Swiper tente buscar elementos que ainda não existem
+          // no momento da renderização
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          swiper.params.navigation.prevEl = prevRef.current;
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          swiper.params.navigation.nextEl = nextRef.current;
+          swiper.navigation.init();
+          swiper.navigation.update();
+        }}
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: false,
+        }}
+        speed={900}
+        modules={[Navigation, Autoplay]}
+        className="w-full h-[500px] mt-[35px] text-[#424750]"
+      >
+        {SlidesProps.map((slide, index) => (
+          <SwiperSlide
+            key={index}
+            style={{ backgroundImage: `url(${slide.imageUrl})` }}
+            className="w-full min-h-full bg-cover bg-top bg-no-repeat"
+          >
+            <div className="relative w-[700px] mx-auto mt-[225px] h-[250px] flex items-center justify-center">
+              <div className="absolute inset-0 bg-white/50 backdrop-blur-lg rounded" />
+              <div className="relative z-10 text-start p-8">
+                <h2 className="text-3xl font-bold mb-6">{slide.title}</h2>
+                <p className="text-lg">{slide.text}</p>
+              </div>
             </div>
-          </div>
-        </SwiperSlide>
-      ))}
+          </SwiperSlide>
+        ))}
 
-      <div className="swiper-button-next bg-white !text-[#424750] !text-[4px] rounded-full p-8" />
-      <div className="swiper-button-prev bg-white !text-[#424750] !text-[4px] rounded-full p-8" />
-    </Swiper>
+        <div
+          ref={prevRef}
+          className="swiper-button-prev p-6 !text-pinkPrimary rounded-full text-4xl flex items-center justify-center bg-white absolute top-1/2 left-4 z-10 cursor-pointer -translate-y-1/2 shadow"
+        >
+          <span className="-mt-[4px] -ml-[4px]">&lt;</span>
+        </div>
+        <div
+          ref={prevRef}
+          className="swiper-button-next p-6 !text-pinkPrimary rounded-full text-4xl justify-center bg-white absolute top-1/2 right-2 z-10 cursor-pointer -translate-y-1/2 shadow"
+        >
+          <span className="-mt-[4px] -mr-[4px]">&gt;</span>
+        </div>
+      </Swiper>
+    </div>
   );
 };

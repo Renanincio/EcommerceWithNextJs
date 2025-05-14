@@ -2,13 +2,14 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSession, signIn, getSession } from "next-auth/react";
 import { z } from "zod";
 import { FaApple, FaFacebook, FaGooglePlus } from "react-icons/fa";
 import useAuthStore from "@/contexts/auth-context/UseAuthStore";
 import { useRouter } from "next/navigation";
+import Head from "next/head";
 
 const loginSchema = z.object({
   email: z.string().email("Digite um e-mail válido."),
@@ -48,7 +49,7 @@ export default function Login() {
 
   const handleOAuthLogin = async (provider: string) => {
     try {
-      const result = await signIn(provider, { redirect: false });
+      const result = await signIn(provider, { callbackUrl: "/" });
       if (result?.ok && result?.url) {
         const session = await getSession();
         if (session) {
@@ -58,7 +59,6 @@ export default function Login() {
               email: session.user.email || "",
               password: "", 
             });
-            router.push("/");
           }
         }
       }
@@ -67,9 +67,9 @@ export default function Login() {
     }
   };
 
-  if (!session) {
-    return <div>Você não está autenticado</div>;
-  }
+  useEffect(() => {
+    document.title = "ZiShop - Entrar";
+  }, []);
 
   return (
     <>

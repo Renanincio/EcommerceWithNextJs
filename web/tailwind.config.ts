@@ -9,6 +9,7 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        pinkPrimary: "#A71B4A",
       },
     },
   },
