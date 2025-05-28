@@ -6,6 +6,7 @@ import * as Popover from "@radix-ui/react-popover";
 import Image from "next/image";
 import { BsCart3 } from "react-icons/bs";
 import { Count } from "../count";
+import Link from "next/link";
 
 export const CartButton = () => {
   const { cart } = useCartStore();
@@ -15,7 +16,7 @@ export const CartButton = () => {
       <Popover.Trigger className="relative cursor-pointer">
         <BsCart3 size={24} />
         {cart.length > 0 && (
-          <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">
+          <span className="absolute top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">
             {cart.length}
           </span>
         )}
@@ -29,9 +30,12 @@ export const CartButton = () => {
         >
           {cart.length > 0 ? (
             <div className="flex-col">
-              <p className="border-b-slate-700 border-b-[1px] p-2">
+              <div className="flex justify-between items-center border-b-slate-700 border-b-[1px] p-2">
+              <p className="">
                 {cart.length}
               </p>
+              <Link href={'/cart'}><p className="text-[#2ECEF0] cursor-pointer mr-4 text-[14px]">Ver carrinho</p></Link>
+              </div>
               {cart.map((item, index) => {
                 const imageBase64 =
                   item.image && item.image.data.length > 0

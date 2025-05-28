@@ -129,15 +129,6 @@ export default function Login() {
             Facebook
             <FaFacebook />
           </button>
-
-          <button
-            type="button"
-            onClick={() => handleOAuthLogin("apple")}
-            className="cursor-pointer bg-white border-[3px] border-[#E1E4E7] shadow-md shadow-[#E1E4E7] py-2 px-4 rounded w-full text-center flex items-center gap-2 justify-center"
-          >
-            Apple
-            <FaApple />
-          </button>
         </div>
         <p>
           Você não tem uma conta?{" "}
