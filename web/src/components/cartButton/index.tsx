@@ -1,12 +1,12 @@
 "use client";
 
 import { useCartStore } from "@/contexts/cart-context/CartProvider";
-import { convertBlobToBase64 } from "@/utils/convertBlobToBase64";
+import { getImageSrcFromBlob } from "@/services/getImageSrcFromBlob";
 import * as Popover from "@radix-ui/react-popover";
 import Image from "next/image";
-import { BsCart3 } from "react-icons/bs";
-import { Count } from "../count";
 import Link from "next/link";
+import { BsCart3 } from "react-icons/bs";
+import { CartPrice } from "../cartPrice";
 
 export const CartButton = () => {
   const { cart } = useCartStore();
@@ -24,60 +24,64 @@ export const CartButton = () => {
 
       <Popover.Portal>
         <Popover.Content
-          className="bg-white shadow-lg rounded-md overflow-scroll h-[500px]"
+          className="bg-white shadow-lg rounded-md overflow-scroll w-[400px] h-[300px] z-10"
           side="bottom"
           align="end"
         >
           {cart.length > 0 ? (
             <div className="flex-col">
-              <div className="flex justify-between items-center border-b-slate-700 border-b-[1px] p-2">
-              <p className="">
-                {cart.length}
-              </p>
-              <Link href={'/cart'}><p className="text-[#2ECEF0] cursor-pointer mr-4 text-[14px]">Ver carrinho</p></Link>
-              </div>
-              {cart.map((item, index) => {
-                const imageBase64 =
-                  item.image && item.image.data.length > 0
-                    ? `data:image/jpeg;base64,${convertBlobToBase64(
-                        item.image
-                      )}`
-                    : "/placeholder.png";
-                return (
-                  <div>
-                    <ul>
-                      <li className="flex flex-col border-b-slate-700 border-b-[1px] py-2">
-                        <div className="flex justify-around">
+              <header className="flex justify-between items-center border-b-slate-700 border-b-[1px] p-2">
+                <p className="">{cart.length}</p>
+                <Link href={"/cart"}>
+                  <p className="text-[#2ECEF0] cursor-pointer mr-4 text-[14px]">
+                    Ver carrinho
+                  </p>
+                </Link>
+              </header>
+              <section>
+                <ul>
+                  {cart.map((item, index) => {
+                    const src = getImageSrcFromBlob(item.image);
+                    return (
+                      <li
+                        key={item.id}
+                        className="flex flex-col border-b-slate-700 border-b-[1px] py-2"
+                      >
+                        <article className="flex justify-around">
                           <Image
-                            src={imageBase64}
+                            src={src}
                             width={250}
                             height={250}
-                            alt=""
+                            alt={`Imagem do produto ${item.name}`}
                             className="w-[125px] h-[125px] m-auto"
                           />
                           <p>{item.name}</p>
-                        </div>
-                        <div className="flex gap-2 px-3">
-                          <Count />
-                          <div>
-                            <p>Valor total</p>
-                            <p className="text-[16px] font-semibold line-through">
-                              R$ {(item.price * item.quantity * 1.1).toFixed(2)}
-                            </p>
-                            <p className="text-[24px] font-semibold mb-6">
-                              R${(item.price * item.quantity).toFixed(2)}
-                              <span className="text-[14px] ml-1">(-10%)</span>
-                            </p>
-                          </div>
-                        </div>
+                        </article>
+                        <CartPrice
+                          id={item.id}
+                          quantity={item.quantity}
+                          price={item.price}
+                        />
                       </li>
-                    </ul>
-                  </div>
-                );
-              })}
+                    );
+                  })}
+                </ul>
+              </section>
             </div>
           ) : (
-            <p className="text-gray-500 text-sm">Seu carrinho está vazio.</p>
+            <>
+              <div className="flex justify-between items-center border-b-slate-700 border-b-[1px] p-2">
+                <p className="">{cart.length}</p>
+                <Link href={"/cart"}>
+                  <p className="text-[#2ECEF0] cursor-pointer mr-4 text-[14px]">
+                    Ver carrinho
+                  </p>
+                </Link>
+              </div>
+              <div className="flex items-center h-full justify-center">
+                <p className="text-gray-500 mt-4">Seu carrinho está vazio</p>
+              </div>
+            </>
           )}
           <Popover.Close className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 cursor-pointer">
             ✕

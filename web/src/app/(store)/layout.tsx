@@ -1,4 +1,4 @@
-import { Footer } from "@/components/footer";
+import { Footer } from "@/components/footer/footer";
 import { Header } from "@/components/header";
 import AuthProvider from "@/contexts/auth-context/AuthProvider";
 import { ReactNode } from "react";
@@ -7,9 +7,8 @@ export default function StoreLayout({ children }: { children: ReactNode }) {
   return (
     <>
       <AuthProvider>
-      <Header />
+        <Header />
         <div className="m-auto w-[1220px]">
-          
           {children}
           <Footer />
           <p className="my-4 text-center">

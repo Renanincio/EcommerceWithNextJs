@@ -1,13 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import Chance from "chance";
-import { randomUUID } from "crypto";
 import fetch from "node-fetch-cjs";
 import { products } from "./products";
 
 const prisma = new PrismaClient();
 const chance = new Chance();
-
-const manualProducts = [];
 
 async function fetchImageAsBlob(imageUrl: string): Promise<Buffer> {
   const controller = new AbortController();

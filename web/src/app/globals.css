@@ -24,3 +24,15 @@ html {
   display: none !important;
   content: none !important;
 }
+
+@layer components {
+  .input {
+    @apply bg-white border-[3px] border-[#E1E4E7] shadow-md rounded p-6;
+  }
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}

@@ -1,9 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
-import { MenuHeader } from "./menuHeader";
-import { AuthButton } from "./authButton";
+import { AuthButton } from "./auth/authButton";
 import { CartButton } from "./cartButton";
+import { MenuHeader } from "./menuHeader";
+import { SearchForm } from "./searchForm";
 
 export const Header = () => {
   return (
@@ -20,11 +22,7 @@ export const Header = () => {
                 alt="Logo do Ecommerce Zi-shop"
               />
             </Link>
-            <input
-              type="search"
-              placeholder="Pesquisar"
-              className="bg-[#E1E4E7] w-[620px] h-[28px] p-4 rounded"
-            />
+            <SearchForm />
           </div>
           <div className="flex items-center gap-4">
             <AuthButton />

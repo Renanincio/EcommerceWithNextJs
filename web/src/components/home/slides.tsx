@@ -85,7 +85,7 @@ export const Slides = () => {
           <span className="-mt-[4px] -ml-[4px]">&lt;</span>
         </div>
         <div
-          ref={prevRef}
+          ref={nextRef}
           className="swiper-button-next p-6 !text-pinkPrimary rounded-full text-4xl justify-center bg-white absolute top-1/2 right-2 z-10 cursor-pointer -translate-y-1/2 shadow"
         >
           <span className="-mt-[4px] -mr-[4px]">&gt;</span>
