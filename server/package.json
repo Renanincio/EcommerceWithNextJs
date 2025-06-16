@@ -50,7 +50,7 @@
     "bcryptjs": "^2.4.3",
     "chance": "^1.1.12",
     "dayjs": "^1.11.11",
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.4.7",
     "faker": "^6.6.6",
     "fastify": "^4.26.2",
     "fastify-cookie": "^5.7.0",
