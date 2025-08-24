@@ -41,7 +41,7 @@
     "vitest": "^1.6.0"
   },
   "dependencies": {
-    "@faker-js/faker": "^9.0.3",
+    "@faker-js/faker": "^9.5.1",
     "@fastify/cookie": "^9.3.1",
     "@fastify/cors": "^8.5.0",
     "@fastify/jwt": "^8.0.1",
