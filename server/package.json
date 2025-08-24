@@ -45,7 +45,7 @@
     "@fastify/cookie": "^9.3.1",
     "@fastify/cors": "^8.5.0",
     "@fastify/jwt": "^8.0.1",
-    "@prisma/client": "^5.12.1",
+    "@prisma/client": "^5.22.0",
     "@types/bcryptjs": "^2.4.6",
     "bcryptjs": "^2.4.3",
     "chance": "^1.1.12",
